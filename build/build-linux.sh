@@ -48,7 +48,7 @@ LUASOCKET_BASENAME="luasocket-3.0-rc1"
 LUASOCKET_FILENAME="v3.0-rc1.zip"
 LUASOCKET_URL="https://github.com/diegonehab/luasocket/archive/$LUASOCKET_FILENAME"
 
-LUASEC_BASENAME="luasec-0.6"
+LUASEC_BASENAME="luasec-0.8"
 LUASEC_FILENAME="$LUASEC_BASENAME.zip"
 LUASEC_URL="https://github.com/brunoos/luasec/archive/$LUASEC_FILENAME"
 
@@ -362,8 +362,9 @@ if [ $BUILD_LUASEC ]; then
   # the folder in the archive is "luasec-luasec-....", so need to fix
   mv "luasec-$LUASEC_BASENAME" $LUASEC_BASENAME
   cd "$LUASEC_BASENAME"
+  mkdir -p "$INSTALL_DIR/lib/lua/$LUAV/"
   gcc $BUILD_FLAGS -o "$INSTALL_DIR/lib/lua/$LUAV/ssl.so" \
-    src/luasocket/{timeout.c,buffer.c,io.c,usocket.c} src/{context.c,x509.c,ssl.c} -Isrc \
+    src/luasocket/{timeout.c,buffer.c,io.c,usocket.c} src/{config.c,context.c,ec.c,x509.c,ssl.c} -Isrc \
     -lssl -lcrypto \
     || { echo "Error: failed to build LuaSec"; exit 1; }
   mkdir -p "$INSTALL_DIR/share/lua/$LUAV/"
